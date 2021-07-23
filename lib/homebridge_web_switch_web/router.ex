@@ -20,9 +20,11 @@ defmodule HomebridgeWebSwitchWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", HomebridgeWebSwitchWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", HomebridgeWebSwitchWeb.API do
+    pipe_through :api
+
+    post "/tv", TVSwitchController, :index
+  end
 
   # Enables LiveDashboard only for development
   #

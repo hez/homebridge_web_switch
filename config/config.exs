@@ -23,6 +23,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# CEC Config
+config :homebridge_web_switch, HomebridgeWebSwitchWeb.API.TVSwitchController,
+  cec_address: System.get_env("CEC_ADDRESS", "0.0.0.0")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
