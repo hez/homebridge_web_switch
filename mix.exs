@@ -53,7 +53,15 @@ defmodule HomebridgeWebSwitch.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"]
+      setup: ["deps.get", "cmd npm install --prefix assets"],
+      build: [
+        "deps.get --only prod",
+# Currently aren't using any assets
+#        "cmd npm install --prefix ./assets",
+#        "cmd npm run deploy --prefix ./assets",
+#        "phx.digest",
+        "release"
+      ]
     ]
   end
 end
