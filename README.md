@@ -1,19 +1,31 @@
 # HomebridgeWebSwitch
 
-To start your Phoenix server:
+A simple Web based switch for HomeBridge, use plugin: https://github.com/benzman81/homebridge-http-webhooks
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+It currently only has a single and at /api/tv which is an "Outlet".  This endpoint is for sending
+CEC on / off commands to a TV.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+example Homebridge config:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```json
+"platforms": [
+  "platform": "HttpWebHooks",
+  "webhook_port": "51828",
+  "cache_directory": "/homebridge/node-persist/storage",
+  "outlets": [
+      {
+          "id": "tv1",
+          "name": "TV",
+          "rejectUnauthorized": false,
+          "on_url": "http://homebridge:4000/api/tv",
+          "on_method": "POST",
+          "on_body": "{ \"on\" : true }",
+          "on_headers": "{\"Authorization\": \"Bearer ABCDEFGH\", \"Content-Type\": \"application/json\"}",
+          "off_url": "http://homebridge:4000/api/tv",
+          "off_method": "POST",
+          "off_body": "{ \"on\": false }",
+          "off_headers": "{\"Authorization\": \"Bearer ABCDEFGH\", \"Content-Type\": \"application/json\"}"
+      }
+  ]
+]
+```
